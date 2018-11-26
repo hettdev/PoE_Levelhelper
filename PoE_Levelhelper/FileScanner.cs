@@ -13,9 +13,12 @@ namespace PoE_Levelhelper
         public string ClientFile { get; set; }
         private FileSystemWatcher watcher = new FileSystemWatcher();
         protected long fileLength = 0;
-
-        public FileScanner(string directoryPath)
+        public IStringInterpreter LineInterpreter;
+        public event EventHandler<InterpretEventArgs> InterpreterEvent;
+        public FileScanner(string directoryPath, IStringInterpreter lineInterpreter)
         {
+            
+            LineInterpreter = lineInterpreter;
             Path = directoryPath;
             ClientFile = Path + "Client.txt";
             using (FileStream fs = File.OpenRead(ClientFile))
@@ -26,29 +29,36 @@ namespace PoE_Levelhelper
             watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess;
             watcher.Filter = "Client.txt";
             watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Renamed += new RenamedEventHandler(OnRename);
             watcher.EnableRaisingEvents = true;
             Console.WriteLine("created watcher for {0}", watcher.Path + watcher.Filter);
         }
 
-        private void OnRename(object source, RenamedEventArgs e)
+        protected virtual void OnRaiseLevelEvent(InterpretEventArgs e)
         {
-            Console.WriteLine("OnRenamed");
+            EventHandler<InterpretEventArgs> handler = InterpreterEvent;
+
+            if(handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)
-        {
-            Console.WriteLine("OnChanged");
-            
+        {   
             using (FileStream fs = File.OpenRead(ClientFile))
             {
                 fs.Seek(fileLength, SeekOrigin.Begin);
-                int size = (int)(fs.Length);
-                byte[] data = new byte[size];
-                fs.Read(data, 0, size);
-                UTF8Encoding enc = new UTF8Encoding(true);
-                Console.WriteLine(enc.GetString(data));
-                fileLength = fs.Length;
+                int size = (int)(fs.Length - fileLength);
+                if(size > 0){
+                    byte[] data = new byte[size];
+                    fs.Read(data, 0, size);
+                    UTF8Encoding enc = new UTF8Encoding(true);
+                    string addedLine = enc.GetString(data); 
+                    Console.WriteLine(addedLine);
+                    string interpreted = LineInterpreter.InterpretLine(addedLine);
+                    OnRaiseLevelEvent(new InterpretEventArgs(interpreted));
+                    fileLength = fs.Length;
+                }
             }
         }
     }

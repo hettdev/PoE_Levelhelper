@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Threading;
+using System.IO;
+using System.Collections.Generic;
 
 namespace PoE_Levelhelper
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            string pth = @"D:\SteamLibrary\steamapps\common\Path of Exile\logs\";
-            FileScanner scanner = new FileScanner(pth);
-            while (true)
-            {
-                Thread.Sleep(100);
-            }
-            Console.WriteLine("Hello World!");
+            string pth = Directory.GetCurrentDirectory();
+            string accName = "Addihash";
+
+            WebCrawl wc = new WebCrawl(accName, new WebCrawlInterpreter());
+            wc.Crawl();
+            
+            
         }
     }
 }
