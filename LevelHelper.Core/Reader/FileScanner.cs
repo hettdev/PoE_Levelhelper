@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Threading;
+using LevelHelper.Core.Interpreter;
 
 
-namespace PoE_Levelhelper
+namespace LevelHelper.Core.Reader
 {
     class FileScanner
     {
@@ -13,14 +14,14 @@ namespace PoE_Levelhelper
         public string ClientFile { get; set; }
         private FileSystemWatcher watcher = new FileSystemWatcher();
         protected long fileLength = 0;
-        public IStringInterpreter LineInterpreter;
+        public List<IStringInterpreter> LineInterpreters;
         public event EventHandler<InterpretEventArgs> InterpreterEvent;
         private bool running = false;
 
-        public FileScanner(string directoryPath, IStringInterpreter lineInterpreter)
+        public FileScanner(string directoryPath, List<IStringInterpreter> lineInterpreters)
         {
 
-            LineInterpreter = lineInterpreter;
+            LineInterpreters = lineInterpreters;
             Path = directoryPath;
             ClientFile = Path + "Client.txt";
 
@@ -28,14 +29,6 @@ namespace PoE_Levelhelper
             fileLength = fi.Length;
 
             new Thread(() => CustomWatcher(ClientFile)).Start();
-
-            //watcher.Path = Path;
-
-            //watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess;
-            //watcher.Filter = "Client.txt";
-            //watcher.Changed += new FileSystemEventHandler(OnChanged);
-            //watcher.EnableRaisingEvents = true;
-            //Console.WriteLine("created watcher for {0}", watcher.Path + watcher.Filter);
         }
 
         private void CustomWatcher(string path)
@@ -58,10 +51,14 @@ namespace PoE_Levelhelper
                             fs.Read(data, 0, size);
                             UTF8Encoding enc = new UTF8Encoding(true);
                             string addedLine = enc.GetString(data);
-                            Console.WriteLine(addedLine);
+                            //                            Console.WriteLine(addedLine);
 
-                            InterpretEventArgs interpreted = LineInterpreter.InterpretLine(addedLine);
-                            OnRaiseLevelEvent(interpreted);
+                            for(int i=LineInterpreters.Count-1; i>=0; --i)
+                            {
+                                InterpretEventArgs interpreted = LineInterpreters[i].InterpretLine(addedLine);
+                                if (interpreted != null)
+                                    OnRaiseLevelEvent(interpreted);
+                            }
 
                         }
                         else

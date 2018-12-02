@@ -2,8 +2,11 @@
 using System.Threading;
 using System.IO;
 using System.Collections.Generic;
+using LevelHelper.Core.Reader;
+using LevelHelper.Core.Interpreter;
+using LevelHelper.Core;
 
-namespace PoE_Levelhelper
+namespace LevelHelper
 {
     class Program
     {
@@ -13,7 +16,11 @@ namespace PoE_Levelhelper
             string pth = @"C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\"; 
             string accName = "Addihash";
 
-            LevelHelper helper = new LevelHelper(accName, pth);
+            List<IStringInterpreter> intps = new List<IStringInterpreter>();
+            intps.Add(new LevelupInterpreter("Alitessa"));
+            FileScanner scanner = new FileScanner(pth, intps);
+
+
             Console.ReadLine();
         }
         

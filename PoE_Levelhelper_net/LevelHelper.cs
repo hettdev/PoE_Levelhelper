@@ -26,9 +26,6 @@ namespace PoE_Levelhelper
             fileScanner = new FileScanner(clientDirectory, gameRunningInterpreter); 
             fileScanner.InterpreterEvent += OnGameRunning;
             fileScanner.InterpreterEvent += OnLevelUp;
-
-            Console.WriteLine("do nothing before game starts");
-
             // do nohing before game runs
             while (!_gameRunning)
             {
@@ -52,20 +49,18 @@ namespace PoE_Levelhelper
             _charName = args.CharName;
             _currentLevel = args.Level;
             _webCrawlFinished = true;
-            Console.WriteLine("OnWebCrawl");
 
         }
 
         private void OnGameRunning(object sender, InterpretEventArgs args)
         {
             _gameRunning = args.GameRunning;
-            Console.WriteLine("OnGameRunning");
         }
 
         private void OnLevelUp(object sender, InterpretEventArgs args)
         {
             this._currentLevel = args.Level;
-//            Console.WriteLine("{0} is level {1}", _charName, _currentLevel);
+            Console.WriteLine("{0} is level {1}", _charName, _currentLevel);
         }
     }
 }

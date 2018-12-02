@@ -1,7 +1,8 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace PoE_Levelhelper
+
+namespace LevelHelper.Core.Interpreter
 {
     class GameRunningInterpreter : IStringInterpreter
     {

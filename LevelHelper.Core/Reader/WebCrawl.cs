@@ -1,8 +1,9 @@
 using System;
 using System.Net.Http;
 using System.IO;
+using LevelHelper.Core.Interpreter;
 
-namespace PoE_Levelhelper
+namespace LevelHelper.Core.Reader
 {
     class WebCrawl
     {

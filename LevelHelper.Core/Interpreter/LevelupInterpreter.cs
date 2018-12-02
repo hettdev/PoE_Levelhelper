@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace PoE_Levelhelper
+namespace LevelHelper.Core.Interpreter
 {
     public class LevelupInterpreter : IStringInterpreter
     {
@@ -18,13 +18,14 @@ namespace PoE_Levelhelper
             string level = "";
             if(!line.Contains(CharacterName))
                 return null;
-            
-            string charNameRegex = @"^.*?(?=" + CharacterName + @")";
 
-            level = Regex.Replace(line, charNameRegex, "");
-            level = Regex.Replace(level, @"^.*?(?=\))", "");
-            level = Regex.Replace(level, @"[^0-9]", "");
-            return new InterpretEventArgs(level: level);
+            string regExp = @"(.+)(" + CharacterName + @")(.+)(level)(.)([0-9])";
+            Match match = Regex.Match(line, regExp);
+
+            level = match.Groups[match.Groups.Count - 1].Value;
+
+            Console.WriteLine("LevelupInterpreter: level={0}", level);
+            return match.Groups.Count > 0 ? new InterpretEventArgs(level: level) : null;
         }
     }
 }

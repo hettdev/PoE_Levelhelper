@@ -12,8 +12,8 @@ namespace PoE_Levelhelper
             line = line.Replace("\"", "");
             string regExp = @"^.*?(?=C\(\{name:)";
 
-            line = line.Split("C({name:")[1];
-            line = line.Split("});")[0];
+            line = Regex.Split(line, "C({name:")[1];
+            line = Regex.Split(line, "});")[0];
             Match match = Regex.Match(line, regExp);
             line = Regex.Replace(line, regExp, "");
             string[] attributes = line.Split(',');

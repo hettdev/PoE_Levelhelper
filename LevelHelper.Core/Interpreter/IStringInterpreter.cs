@@ -1,4 +1,4 @@
-namespace PoE_Levelhelper
+namespace LevelHelper.Core.Interpreter
 {
     interface IStringInterpreter
     {
