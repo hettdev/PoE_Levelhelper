@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LevelHelper.UI"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="500" MinWidth="350" Height="496.667" Width="202.733">
+        Title="MainWindow" MinHeight="600" MinWidth="400" Height="496.667" Width="202.733">
     <Grid>
         <Grid Background="Gray">
             <Grid.RowDefinitions>
@@ -30,15 +30,16 @@
             <Label x:Name="lbl_flask" Content="Flasks" Background="DimGray" Grid.Row="3" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
 
 
-            <Label x:Name="lbl_level" Content="Current Level" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
-            <Label x:Name="lbl_zone"  Content="Current Zone"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left"/>
+            <Label x:Name="lbl_level" Content="Current Level" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label x:Name="lbl_zone"  Content="Current Zoneg"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Margin="5" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Margin="5,0,5,0" VerticalScrollBarVisibility="Hidden">
                 <StackPanel x:Name="pnl_lvl"  VerticalAlignment="Stretch"  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Stretch" Background="DimGray"/>
                 <!-- CanHorizontallyScroll="True" ScrollViewer.CanContentScroll="True" CanVerticallyScroll="True"-->
             </ScrollViewer>
-            <StackPanel x:Name="pnl_zone" Margin="5" Grid.Column="2"  Grid.RowSpan="2" Grid.Row="2" VerticalAlignment="Stretch" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Stretch" Background="DimGray" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-
+            <ScrollViewer Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5,0,5,5" VerticalScrollBarVisibility="Hidden">
+                <StackPanel x:Name="pnl_zone"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Stretch" Background="DimGray" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </ScrollViewer>
             <TextBox x:Name="path" IsEnabled="False" Text="C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\" TextChanged="OnPathTextChanged" TextBlock.FontSize="10" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="23" Margin="5,1,5,5" Grid.Row="4" TextWrapping="NoWrap" VerticalAlignment="Center" Background="LightGray"/>
             <TextBox x:Name="account" KeyUp="Account_KeyUp" IsEnabled="False" Text="Accountname" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="23" Margin="5,1,5,5" Grid.Row="5" TextWrapping="NoWrap" VerticalAlignment="Center" Background="LightGray"/>
             
