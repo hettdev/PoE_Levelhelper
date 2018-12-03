@@ -32,7 +32,7 @@ namespace LevelHelper.UI
         private string _level;
         private string _zone;
         private List<string> _currentLevelMessages = new List<string>();
-        private List<string> _currentZoneMessage = new List<string>();
+        private List<string> _currentZoneMessages = new List<string>();
         private string _currentFlaskMessage;
         private List<string> _currentQuestMessages;
 
@@ -105,30 +105,52 @@ namespace LevelHelper.UI
         private void OnHelperZoneChange(object sender, InterpretEventArgs args)
         {
             _zone = args.Zone;
-            // TODO: wire up zone changes
             this.Dispatcher.Invoke(new Action(() =>
             {
                 this.lbl_zone.Content = _zone;
+            }));
+            helper.GetZoneMessages2(_zone, out _currentQuestMessages, out _currentZoneMessages);
+            SetZoneContent();
+        }
+
+        private void SetZoneContent()
+        {
+
+            // TODO: wire up zone changes
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                this.pnl_zone.Children.Clear();
+                if (_currentQuestMessages != null)
+                {
+                    foreach (string questMsg in _currentQuestMessages)
+                    {
+                        this.pnl_zone.Children.Add(new TextBlock()
+                        {
+                            Text = questMsg,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Margin = new Thickness(0),
+                            TextWrapping = TextWrapping.Wrap,
+                        });
+                    }
+                }
+                if (_currentZoneMessages != null)
+                {
+                    foreach (string chrAreaMsg in _currentZoneMessages)
+                    {
+                        this.pnl_zone.Children.Add(new TextBlock()
+                        {
+                            Text = chrAreaMsg,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Margin = new Thickness(0),
+                            TextWrapping = TextWrapping.Wrap,
+                        });
+                    }
+                }
             }));
         }
 
         private void SetLevelContent()
         {
-            /*
-            if (flaskMessage != null)
-            {
-                StringBuilder builder = new StringBuilder();
-                foreach(string flsk in flaskMessage.Messages)
-                {
-                    builder.AppendLine(flsk);
-                }
-                _currentFlaskMessage = builder.ToString();
-            }
-            if (charLvlMessage != null)
-            {
-                _currentLevelMessages = charLvlMessage.Messages;
-            }*/
-
             this.Dispatcher.Invoke(new Action(() =>
             {
                 this.lbl_level.Content = "Level " + _level;

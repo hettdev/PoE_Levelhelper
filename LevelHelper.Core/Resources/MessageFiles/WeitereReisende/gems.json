@@ -2,103 +2,106 @@
   "levels": [
     {
       "level": "1",
-      "msg": "Arcane Surgfe Support"
+      "msg": [ "aaaaaaaa" ]
     },
     {
       "level": "2",
-      "msg": "Freezing Pulse"
+      "msg": [ "bbbbb" ]
     },
     {
       "level": "12",
-      "msg": "Sunder"
+      "msg": [ "ccccc" ]
     },
     {
       "level": "18",
-      "msg": "asd"
+      "msg": [ "ddddd" ]
     },
     {
       "level": "21",
-      "msg": "fsadfs"
+      "msg": [ "eeeee" ]
     },
     {
       "level": "22",
-      "msg": "cxvbcxvb"
+      "msg": [ "fffff" ]
     },
     {
       "level": "23",
-      "msg": "weqr"
+      "msg": [ "ggggg" ]
     },
     {
       "level": "24",
-      "msg": "tzuizui"
+      "msg": [ "hhhhh" ]
     },
     {
       "level": "25",
-      "msg": "grethght"
+      "msg": [ "iiiii" ]
     },
     {
       "level": "26",
-      "msg": "ysresyre"
+      "msg": [ "jjjjj" ]
     },
     {
       "level": "27",
-      "msg": ",izkzu,k"
+      "msg": [ "kkkkk" ]
     },
     {
       "level": "28",
-      "msg": "kjijknjkn"
+      "msg": [ "lllll" ]
     },
     {
       "level": "29",
-      "msg": "4567gb54bb"
+      "msg": [ "mmmmm" ]
     },
     {
       "level": "30",
-      "msg": ",879o,87,o8om,87"
+      "msg": [ "nnnnn" ]
     },
     {
       "level": "31",
-      "msg": "2ws2ws3efd"
+      "msg": [ "ooooo" ]
     },
     {
       "level": "32",
-      "msg": "vctgftr54gv5t"
+      "msg": [ "ppppp" ]
     },
     {
       "level": "33",
-      "msg": "14654156148915341"
+      "msg": [ "qqqqq" ]
     },
     {
       "level": "41",
-      "msg": "Arcane Surgfe Support"
+      "msg": [ "rrrrr" ]
     },
     {
       "level": "42",
-      "msg": "Freezing Pulse"
+      "msg": [ "sssss" ]
     },
     {
       "level": "42",
-      "msg": "Sunder"
+      "msg": [ "ttttt" ]
     },
     {
       "level": "48",
-      "msg": "asd"
+      "msg": [ "uuuuu" ]
     },
     {
       "level": "51",
-      "msg": "fsadfs"
+      "msg": [ "vvvvv" ]
     },
     {
       "level": "52",
-      "msg": "cxvbcxvb"
+      "msg": [ "wwwww" ]
     },
     {
       "level": "53",
-      "msg": "weqr"
+      "msg": [ "xxxxxx" ]
     },
     {
       "level": "54",
-      "msg": "tzuizui"
+      "msg": [
+        "yyyyyy",
+        "zzzzzz"
+      ]
     }
   ]
 }

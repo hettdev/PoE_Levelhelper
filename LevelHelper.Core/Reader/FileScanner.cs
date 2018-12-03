@@ -82,27 +82,5 @@ namespace LevelHelper.Core.Reader
                 handler(this, e);
             }
         }
-
-        private void OnChanged(object source, FileSystemEventArgs e)
-        {
-            Console.WriteLine("change");
-            /*
-            using (FileStream fs = new FileStream(ClientFile, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                fs.Seek(fileLength, SeekOrigin.Begin);
-                int size = (int)(fs.Length - fileLength);
-                if(size > 0){
-                    byte[] data = new byte[size];
-                    fs.Read(data, 0, size);
-                    UTF8Encoding enc = new UTF8Encoding(true);
-                    string addedLine = enc.GetString(data); 
-                    Console.WriteLine(addedLine);
-                    InterpretEventArgs interpreted = LineInterpreter.InterpretLine(addedLine);
-                    OnRaiseLevelEvent(interpreted);
-                    fileLength = fs.Length;
-                }
-            }
-            */
-        }
     }
 }

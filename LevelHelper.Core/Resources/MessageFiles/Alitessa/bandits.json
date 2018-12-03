@@ -1,16 +1,16 @@
 {
   "areas": [
     {
-      "area": "Broken Bridge",
-      "msg": "Kill Kraityn"
+      "area": "The Broken Bridge",
+      "msg": [ "Kill Kraityn" ]
     },
     {
       "area": "The Western Forset",
-      "msg": "Help Alira"
+      "msg": [ "Help Alira" ]
     },
     {
       "area": "The Wetlands",
-      "msg": "Kill Oak"
+      "msg": [ "Kill Oak" ]
     }
   ]
 }

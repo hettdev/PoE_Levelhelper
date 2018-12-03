@@ -2,23 +2,23 @@
   "levels": [
     {
       "level": "1",
-      "msg": "Arcane Surgfe Support"
+      "msg": [ "Arcane Surgfe Support" ]
     },
     {
       "level": "2",
-      "msg": "Freezing Pulse"
+      "msg": [ "Freezing Pulse" ]
     },
     {
       "level": "3",
-      "msg": "Level THREEEE"
+      "msg": [ "Level THREEEE" ]
     },
     {
       "level": "12",
-      "msg": "Sunder"
+      "msg": [ "Sunder" ]
     },
     {
       "level": "18",
-      "msg": "Melle Physical Damage Support"
+      "msg": [ "Melle Physical Damage Support" ]
     }
   ]
 }

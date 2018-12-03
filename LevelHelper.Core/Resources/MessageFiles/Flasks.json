@@ -1,0 +1,88 @@
+{
+  "levels": [
+    {
+      "level": "1",
+      "msg": [
+        "Small Life Flask",
+        "Small Mana Flask"
+      ]
+    },
+    {
+      "level": "3",
+      "msg": [
+        "Medium Life Flask",
+        "Medium Mana Flask"
+      ]
+    },
+    {
+      "level": "6",
+      "msg": [
+        "Large Life Flask",
+        "Large Mana Flask"
+      ]
+    },
+    {
+      "level": "12",
+      "msg": [
+        "Greater Life Flask",
+        "Greater Mana Flask"
+      ]
+    },
+    {
+      "level": "18",
+      "msg": [
+        "Grand Life Flask",
+        "Grand Mana Flask"
+      ]
+    },
+    {
+      "level": "24",
+      "msg": [
+        "Giant Life Flask",
+        "Giant Mana Flask"
+      ]
+    },
+    {
+      "level": "30",
+      "msg": [
+        "Colossal Life Flask",
+        "Colossal Mana Flask"
+      ]
+    },
+    {
+      "level": "36",
+      "msg": [
+        "Colossal Life Flask",
+        "Colossal Mana Flask"
+      ]
+    },
+    {
+      "level": "42",
+      "msg": [
+        "Hallowed Life Flask",
+        "Hallowed Mana Flask"
+      ]
+    },
+    {
+      "level": "50",
+      "msg": [
+        "Sanctified Life Flask",
+        "Sanctified Mana Flask"
+      ]
+    },
+    {
+      "level": "60",
+      "msg": [
+        "Sanctified Life Flask",
+        "Sanctified Mana Flask"
+      ]
+    },
+    {
+      "level": "65",
+      "msg": [
+        "Eternal Life Flask",
+        "Eternal Mana Flask"
+      ]
+    }
+  ]
+}

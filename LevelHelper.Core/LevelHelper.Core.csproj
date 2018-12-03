@@ -64,10 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Resources\MessageFiles\ManaFlasks.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\MessageFiles\LifeFlasks.json">
+    <None Include="Resources\MessageFiles\Flasks.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\MessageFiles\Alitessa\bandits.json">

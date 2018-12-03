@@ -155,6 +155,27 @@ namespace LevelHelper.Core
             }
         }
 
+        public void GetZoneMessages2(string key, out List<string> questMessages, out List<string> characterMessages)
+        {   
+            questMessages = null;
+            characterMessages = null;
+            if (msgFileReader.QuestDict.ContainsKey(key))
+            {
+                if (questMessages == null)
+                    questMessages = msgFileReader.QuestDict[key].GetMessages();
+                else
+                    questMessages.AddRange(msgFileReader.QuestDict[key].GetMessages());
+
+            }
+            if (msgFileReader.CharacterDict.ContainsKey(key))
+            {
+                if (characterMessages == null)
+                    characterMessages = msgFileReader.CharacterDict[key].GetMessages();
+                else
+                    characterMessages.AddRange(msgFileReader.CharacterDict[key].GetMessages());
+            }
+        }
+
         protected virtual void OnRaiseInitializedEvent(InterpretEventArgs e)
         {
             EventHandler<InterpretEventArgs> handler = InitializedEvent;
@@ -228,7 +249,7 @@ namespace LevelHelper.Core
 
         private void OnLevelUp(object sender, InterpretEventArgs args)
         {
-            if (args == null || sender == null || args.Level==null)
+            if (args == null || sender == null || String.IsNullOrEmpty(args.Level))
                 return;
             this._currentLevel = args.Level;
             Console.WriteLine("{0} is level {1}", _charName, _currentLevel);
@@ -237,7 +258,7 @@ namespace LevelHelper.Core
 
         private void OnZoneChange(object sender, InterpretEventArgs args)
         {
-            if (args == null || sender == null || args.Zone == null)
+            if (args == null || sender == null || String.IsNullOrEmpty(args.Zone))
                 return;
             this._currentZone = args.Zone;
             OnRaiseZoneEvent(args);

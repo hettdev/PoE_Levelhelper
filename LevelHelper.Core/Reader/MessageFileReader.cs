@@ -108,12 +108,13 @@ namespace LevelHelper.Core.Reader
                 {
                     foreach (JToken child in arr.Children())
                     {
+                        
                         string v1 = child[valueNames[0]].ToString();    // level or area
-                        string v2 = child[valueNames[1]].ToString();    // msg
+                        List<string> v2 = child[valueNames[1]].ToObject<List<string>>();    // msg
 
                         if (msgDict.ContainsKey(v1))
                         {
-                            msgDict[v1].AddMessage(v2);
+                            msgDict[v1].AddMessages(v2);
                         }
                         else
                         {
