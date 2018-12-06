@@ -54,5 +54,21 @@ namespace LevelHelper.Core.Messages
         {
             return this.Messages;
         }
+
+
+        public string ToString(bool includeTrigger = false)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string msgString in Messages)
+            {
+                if (includeTrigger)
+                    sb.AppendLine(String.Format("[{0}] {1}", Level, msgString));
+                else
+                    sb.AppendLine(msgString);
+            }
+            return sb.ToString().TrimEnd('\r', '\n');
+        }
+
     }
 }

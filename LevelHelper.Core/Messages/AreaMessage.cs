@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace LevelHelper.Core.Messages
 {
     public class AreaMessage : IMessage
-
     {
         public string Area { get; private set; }
         public List<string> Messages { get; private set; }
@@ -54,6 +53,21 @@ namespace LevelHelper.Core.Messages
         public List<string> GetMessages()
         {
             return this.Messages;
+        }
+
+        public string ToString(bool includeTrigger)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string msgString in Messages)
+            {
+                if (includeTrigger)
+                    sb.AppendLine(String.Format("[{0}] {1}", Area, msgString));
+                else
+                    sb.AppendLine(msgString);
+            }
+
+            return sb.ToString();
         }
     }
 }

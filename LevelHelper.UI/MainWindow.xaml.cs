@@ -15,7 +15,10 @@ using System.Windows.Shapes;
 using LevelHelper.Core;
 using LevelHelper.Core.Interpreter;
 using LevelHelper.Core.Messages;
+using LevelHelper.Core.Util;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LevelHelper.UI
 {
@@ -24,6 +27,7 @@ namespace LevelHelper.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string _SETTINGS__FILE = Directory.GetCurrentDirectory() + @"\settings.json";
         private Core.LevelHelper helper;
         private string _accountName;
         private string _pth;
@@ -31,10 +35,15 @@ namespace LevelHelper.UI
         private string _chClass;
         private string _level;
         private string _zone;
-        private List<string> _currentLevelMessages = new List<string>();
-        private List<string> _currentZoneMessages = new List<string>();
-        private string _currentFlaskMessage;
-        private List<string> _currentQuestMessages;
+        private List<string> _currentLevelMessagesStringList = new List<string>();
+        private List<string> _currentZoneMessagesStringList = new List<string>();
+        private string _currentFlaskMessageString;
+        private List<string> _currentQuestMessagesStringList;
+        
+        private LevelMessage _flaskMessage;
+        private List<LevelMessage> _currentLevelMessages = new List<LevelMessage>();
+        private List<AreaMessage> _currentZoneMessages = new List<AreaMessage>();
+        private List<AreaMessage> _currentQuestMessages = new List<AreaMessage>();
 
         bool _startClicked = false;
         bool _locked = true;
@@ -42,6 +51,47 @@ namespace LevelHelper.UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+
+        private void LoadSettings()
+        {
+            if (!File.Exists(_SETTINGS__FILE))
+                SaveSettings();
+            else
+            {
+                using (StreamReader sr = File.OpenText(_SETTINGS__FILE))
+                using (JsonTextReader reader = new JsonTextReader(sr))
+                {
+                    JObject jo = (JObject)JToken.ReadFrom(reader);
+                    _pth = jo.GetValue("install_path").ToString();
+                    path.Text = _pth;
+                    _accountName = jo.GetValue("account_name").ToString();
+                    account.Text = _accountName;
+                }
+            }
+
+        }
+
+        private void SaveSettings()
+        {
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                writer.Formatting = Formatting.Indented;
+
+                writer.WriteStartObject();
+                writer.WritePropertyName("install_path");
+                writer.WriteValue(path.Text);
+                writer.WritePropertyName("account_name");
+                writer.WriteValue(account.Text);
+//                writer.WriteEnd();
+                writer.WriteEndObject();
+            }
+            File.WriteAllText(_SETTINGS__FILE, sw.ToString());
         }
 
         private void OnStartClick(object sender, RoutedEventArgs args)
@@ -53,7 +103,7 @@ namespace LevelHelper.UI
         {
             _accountName = account.Text;
             _pth = path.Text;
-            Console.WriteLine("{0} {1}", _accountName, _pth);
+            LoadSettings();
             this.btn_start.Content = "Started...";
             _startClicked = true;
             InitializeHelper();
@@ -71,7 +121,7 @@ namespace LevelHelper.UI
                 account.IsEnabled = false;
                 path.IsEnabled = false;
                 this.btn_lock.Content = "Unlock Input";
-
+                SaveSettings();
             }
             else
             {
@@ -97,8 +147,8 @@ namespace LevelHelper.UI
         {
             _level = args.Level;
 
-//            helper.GetLevelMessages(_level, out flaskMessage, out charLvlMessage);
-            helper.GetLevelMessages2(_level, out _currentFlaskMessage, out _currentLevelMessages);
+            helper.GetLevelMessages(_level, out _flaskMessage, out _currentLevelMessages);
+//            helper.GetLevelMessages2(_level, out _currentFlaskMessage, out _currentLevelMessages);
             SetLevelContent();
         }
 
@@ -109,7 +159,8 @@ namespace LevelHelper.UI
             {
                 this.lbl_zone.Content = _zone;
             }));
-            helper.GetZoneMessages2(_zone, out _currentQuestMessages, out _currentZoneMessages);
+            helper.GetZoneMessages(_zone, out _currentQuestMessages, out _currentZoneMessages);
+            //            helper.GetZoneMessages2(_zone, out _currentQuestMessagesStringList, out _currentZoneMessagesStringList);
             SetZoneContent();
         }
 
@@ -122,7 +173,8 @@ namespace LevelHelper.UI
                 this.pnl_zone.Children.Clear();
                 if (_currentQuestMessages != null)
                 {
-                    foreach (string questMsg in _currentQuestMessages)
+                    /*
+                    foreach (string questMsg in _currentQuestMessagesStringList)
                     {
                         this.pnl_zone.Children.Add(new TextBlock()
                         {
@@ -131,15 +183,35 @@ namespace LevelHelper.UI
                             Margin = new Thickness(0),
                             TextWrapping = TextWrapping.Wrap,
                         });
+                    }*/
+                    foreach( IMessage msg in _currentQuestMessages)
+                    {
+                        this.pnl_zone.Children.Add(new TextBlock()
+                        {
+                            Text = msg.ToString(false),
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Margin = new Thickness(0),
+                            TextWrapping = TextWrapping.Wrap,
+                        });
                     }
                 }
                 if (_currentZoneMessages != null)
                 {
-                    foreach (string chrAreaMsg in _currentZoneMessages)
+                    //foreach (string chrAreaMsg in _currentZoneMessagesStringList)
+                    //{
+                    //    this.pnl_zone.Children.Add(new TextBlock()
+                    //    {
+                    //        Text = chrAreaMsg,
+                    //        VerticalAlignment = VerticalAlignment.Top,
+                    //        Margin = new Thickness(0),
+                    //        TextWrapping = TextWrapping.Wrap,
+                    //    });
+                    //}
+                    foreach (IMessage msg in _currentZoneMessages)
                     {
                         this.pnl_zone.Children.Add(new TextBlock()
                         {
-                            Text = chrAreaMsg,
+                            Text = msg.ToString(),
                             VerticalAlignment = VerticalAlignment.Top,
                             Margin = new Thickness(0),
                             TextWrapping = TextWrapping.Wrap,
@@ -154,25 +226,28 @@ namespace LevelHelper.UI
             this.Dispatcher.Invoke(new Action(() =>
             {
                 this.lbl_level.Content = "Level " + _level;
-                this.lbl_flask.Content = _currentFlaskMessage;
+                this.lbl_flask.Content = _flaskMessage.ToString();
                 int counter = 0;
                 this.pnl_lvl.Children.Clear();
-                foreach (string chrLvlMsg in _currentLevelMessages)
+                foreach (IMessage msg in _currentLevelMessages)
                 {
                     this.pnl_lvl.Children.Add(new TextBlock()
                     {
-                        Text = chrLvlMsg,
+                        //Text = string.Join(Environment.NewLine, msg.GetMessages()) + " ( " + (float)Mathfx.Sinerp(.5, 1, Math.Min(1, Double.Parse(_level) / Double.Parse(msg.Identifier()))) + " ) ",
+                        Text = msg.ToString(true),
                         VerticalAlignment = VerticalAlignment.Top,
                         Margin = new Thickness(0),
                         TextWrapping = TextWrapping.Wrap,
+
                         // TODO: Make better function for the gradient
                         Foreground = new SolidColorBrush(new Color()
                         {
                             ScR = 0,
                             ScG = 0,
                             ScB = 0,
-                            ScA = Math.Max(0.5f, ((float)(_currentLevelMessages.Count - counter) / ((float)_currentLevelMessages.Count)))
-                        })
+                            ScA = (float)Mathfx.Sinerp(.5, 1, Math.Min(1,Double.Parse(msg.Identifier()) / Double.Parse(_level)))
+                        }),
+                        
                     });
                     ++counter;
                 }
@@ -215,8 +290,8 @@ namespace LevelHelper.UI
             }));
             helper.ReadMesageFiles();
             helper.StartLevelingMonitoring();
-//            helper.GetLevelMessages(_level, out flaskMessage, out charLvlMessage);
-            helper.GetLevelMessages2(_level, out _currentFlaskMessage, out _currentLevelMessages);
+            helper.GetLevelMessages(_level, out _flaskMessage, out _currentLevelMessages);
+//            helper.GetLevelMessages2(_level, out _currentFlaskMessageString, out _currentLevelMessagesStringList);
             SetLevelContent();
             SetClassImage();
         }
@@ -246,9 +321,14 @@ namespace LevelHelper.UI
         {
             if(e.Key == Key.Return)
             {
-                Start();
                 LockInput();
+                Start();
             }
+        }
+
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            LoadSettings();
         }
     }
 }

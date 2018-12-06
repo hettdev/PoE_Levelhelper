@@ -82,12 +82,12 @@ namespace LevelHelper.Core
             _initialized = true;
         }
 
-        public void GetLevelMessages(string key, out LevelMessage flaskMessage, out LevelMessage characterMessage)
+        public void GetLevelMessages(string key, out LevelMessage flaskMessage, out List<LevelMessage> characterMessages)
         {
             bool hasFlask = false;
             bool hasChar = false;
             flaskMessage = null;
-            characterMessage = null;
+            characterMessages = null;
             for(int i=Int32.Parse(key); i>0; --i)
             {
                 if (!hasFlask && msgFileReader.FlaskDict.ContainsKey(i.ToString()))
@@ -97,15 +97,14 @@ namespace LevelHelper.Core
                 }
                 if(!hasChar && msgFileReader.CharacterDict.ContainsKey(i.ToString()))
                 {
-                    characterMessage = msgFileReader.CharacterDict[i.ToString()] as LevelMessage;
-                    hasChar = true;
+                    if(characterMessages == null)
+                        characterMessages = new List<LevelMessage>();
+                    characterMessages.Add(msgFileReader.CharacterDict[i.ToString()] as LevelMessage);
                 }
-                if (hasFlask && hasChar)
-                    break;
             }
         }
 
-        public void GetLevelMessages2(string key, out string flaskMessage, out List<string> characterMessages)
+        public void GetLevelMessageStrings(string key, out string flaskMessage, out List<string> characterMessages)
         {
             bool hasFlask = false;
             bool hasChar = false;
@@ -132,30 +131,25 @@ namespace LevelHelper.Core
             }
         }
 
-        public void GetZoneMessages(string key, out AreaMessage questMessage, out AreaMessage characterMessage)
+        public void GetZoneMessages(string key, out List<AreaMessage> questMessages, out List<AreaMessage> characterMessages)
         {
-            bool hasQuest = false;
-            bool hasChar = false;
-            questMessage = null;
-            characterMessage = null;
-            for (int i = Int32.Parse(key); i > 0; --i)
+            questMessages = null;
+            characterMessages = null;
+            if (msgFileReader.QuestDict.ContainsKey(key))
             {
-                if (!hasQuest && msgFileReader.QuestDict.ContainsKey(key))
-                {
-                    questMessage = msgFileReader.QuestDict[key] as AreaMessage;
-                    hasQuest = true;
-                }
-                if (!hasChar && msgFileReader.CharacterDict.ContainsKey(key))
-                {
-                    characterMessage = msgFileReader.CharacterDict[key] as AreaMessage;
-                    hasChar = true;
-                }
-                if (hasQuest && hasChar)
-                    break;
+                if (questMessages == null)
+                    questMessages = new List<AreaMessage>();
+                questMessages.Add(msgFileReader.QuestDict[key] as AreaMessage);
+            }
+            if (msgFileReader.CharacterDict.ContainsKey(key))
+            {
+                if (characterMessages == null)
+                    characterMessages = new List<AreaMessage>();
+                characterMessages.Add(msgFileReader.CharacterDict[key] as AreaMessage);
             }
         }
 
-        public void GetZoneMessages2(string key, out List<string> questMessages, out List<string> characterMessages)
+        public void GetZoneMessageStrings(string key, out List<string> questMessages, out List<string> characterMessages)
         {   
             questMessages = null;
             characterMessages = null;

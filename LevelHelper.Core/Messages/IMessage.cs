@@ -12,5 +12,6 @@ namespace LevelHelper.Core.Messages
         void AddMessages(List<string> messages);
         List<string> GetMessages();
         string Identifier();
+        string ToString(bool includeTrigger);
     }
 }

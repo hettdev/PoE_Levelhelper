@@ -1,0 +1,48 @@
+{
+  "levels": [
+    {
+      "level": "60",
+      "msg": [ "Windshriek Boots" ]
+    },
+    {
+      "level": "30",
+      "msg": [ "Brightbeak Hammer" ]
+    },
+    {
+      "level": "18",
+      "msg": [ "Hrimsorrow Gloves" ]
+    },
+    {
+      "level": "60",
+      "msg": [ "Starkonja's Head" ]
+    },
+    {
+      "level": "68",
+      "msg": [ "Atziri's Promise" ]
+    },
+    {
+      "level": "68",
+      "msg": [ "The Wise Oak" ]
+    },
+    {
+      "level": "68",
+      "msg": [ "Vessel of Vinktar (added spell dmg)" ]
+    },
+    {
+      "level": "68",
+      "msg": [ "Inpulsa's Broken Heart" ]
+    },
+    {
+      "level": "68",
+      "msg": [ "The Tactician Belt (200 str+int)" ]
+    },
+    {
+      "level": "60",
+      "msg": [ "Ichimonji" ]
+    },
+    {
+      "level": "80",
+      "msg": [ "Mark of the Shaper" ]
+    }
+  ]
+}

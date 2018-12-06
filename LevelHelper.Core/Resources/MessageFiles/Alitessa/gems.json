@@ -2,23 +2,88 @@
   "levels": [
     {
       "level": "1",
-      "msg": [ "Arcane Surgfe Support" ]
+      "msg": [ "Arcane Surge Support" ]
     },
     {
       "level": "2",
       "msg": [ "Freezing Pulse" ]
     },
     {
-      "level": "3",
-      "msg": [ "Level THREEEE" ]
+      "level": "4",
+      "msg": [ "Orb of Storms" ]
+    },
+    {
+      "level": "10",
+      "msg": [
+        "Shield Charge",
+        "[ Siosa / Viktor ]",
+        "Leap Slam",
+        "[ Siosa / Viktor ]"
+      ]
     },
     {
       "level": "12",
-      "msg": [ "Sunder" ]
+      "msg": [
+        "Blade Vortex (x5 for vaaling)",
+        "[ Vendor | after Marveil ]"
+
+      ]
     },
     {
-      "level": "18",
-      "msg": [ "Melle Physical Damage Support" ]
+      {
+        "level": "16",
+        "msg": [
+          "Herald of Purity",
+          "Herald of Ash",
+          "Herald of Ice",
+          "Herald of Thunder"
+        ]
+      },
+      {
+        "level": "18",
+        "msg": [
+          "Concentrated Effect Support",
+          "Controlled Destruction Support",
+          "Physical to Lightning Support",
+          "[ Siosa / Viktor ]",
+          "Increased Critical Damage support",
+          "Power Charge on Critical strike Support",
+          "Faster Attacks Support",
+          "[ Siosa / Viktor ]"
+        ]
+      },
+      {
+        "level": "24",
+        "msg": [
+          "Wrath",
+          "Assassin's Mark"
+        ]
+      },
+      {
+        "level": "31",
+        "msg": [
+          "Hypothermia Support",
+          "[ Siosa / Bitterdream ]",
+          "Increased Duration Support",
+          "[ Siosa / Lilly ]",
+          "Fortify Support",
+          "[ Siosa / Viktor ]"
+        ]
+      },
+      {
+        "level": "34",
+        "msg": [
+          "Imortal Call",
+          "[ Lilly / Viktor ]"
+        ]
+      },
+      {
+        "level": "38",
+        "msg": [
+          "Curse on Hit Support",
+          "Increased Area of Effect Support",
+          "Cast when Damage taken Support"
+        ]
+      }
+      ]
     }
-  ]
-}
